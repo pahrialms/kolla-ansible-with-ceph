@@ -1,13 +1,11 @@
-
-
-Generate SSH-Key and distribute to all host.
+## 1. Generate SSH-Key and distribute to all host.
 ```
 # run only on controller001
 ssh-keygen -t rsa
 ssh-copy-id -f -i ~/.ssh/id_rsa.pub root@host
 ```
 
-Add hostname mapping in /etc/hosts file configuration :
+## 2. Add hostname mapping in /etc/hosts file configuration :
 ```
 # run on all host
 cat <<EOF>> /etc/hosts
@@ -34,7 +32,7 @@ cat <<EOF>> /etc/hosts
 EOF
 ```
 
-Install cephadm 
+## 3. Install cephadm 
 ```
 # run only on controller001
 CEPH_RELEASE=18.2.0 # replace this with the active release
@@ -47,12 +45,12 @@ chmod +x cephadm
 
 ```
 
-Bootstrap ceph cluster
+## 4. Bootstrap ceph cluster
 ```
 cephadm bootstrap --mon-ip 172.16.16.11 --cluster-network 172.20.23.0/24 --log-to-file --allow-overwrite
 ```
 
-Install ceph client 
+## 5. Install ceph client 
 ```
 cephadm shell
 exit
@@ -61,7 +59,7 @@ cephadm add-repo --release reef
 cephadm install ceph-common
 ```
 
-Copy ceph public key to all node ceph cluster:
+## 6. Copy ceph public key to all node ceph cluster:
 ```
 ssh-copy-id -f -i /etc/ceph/ceph.pub root@controller002
 ssh-copy-id -f -i /etc/ceph/ceph.pub root@controller003
@@ -70,7 +68,7 @@ ssh-copy-id -f -i /etc/ceph/ceph.pub root@compute002
 ssh-copy-id -f -i /etc/ceph/ceph.pub root@compute003
 ```
 
-Add additional ceph-mon
+## 7. Add additional ceph-mon
 ```
 ceph orch apply mon --unmanaged
 ssh ms-controller002 apt install podman -y
@@ -83,8 +81,11 @@ ceph orch daemon add mon ms-controller002:172.16.16.12
 ceph orch daemon add mon ms-controller003:172.16.16.13
 ```
 
-Add node compute as storage disk server 
+## 8. Add node compute as storage disk server 
 ```
+ssh ms-compute001 apt install podman -y
+ssh ms-compute002 apt install podman -y
+
 ceph orch host add ms-compute001 172.16.16.14
 ceph orch host add ms-compute002 172.16.16.15
 
@@ -95,7 +96,7 @@ ex: ceph orch daemon add osd ms-compute001:/dev/sdb
 ceph -s
 ```
 
-Create openstack keyring for openstack usage
+## 9. Create openstack keyring for openstack usage
 ```
 ceph -s
 ceph osd pool create volumes
