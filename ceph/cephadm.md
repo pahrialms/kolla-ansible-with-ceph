@@ -9,32 +9,8 @@ ssh-copy-id -f -i ~/.ssh/id_rsa.pub root@ms-compute002
 ssh-copy-id -f -i ~/.ssh/id_rsa.pub root@ms-compute003
 ```
 
-## 2. Add hostname mapping in /etc/hosts file configuration :
-```
-# run on all host
-cat <<EOF>> /etc/hosts
-172.20.20.11 ms-controller001.public.xyz.local
-172.20.21.11 ms-controller001 ms-controller001.internal.xyz.local
+## 2. Makesure hostname mapping in /etc/hosts has correct:
 
-172.20.20.12 ms-controller002.public.xyz.local
-172.20.21.12 ms-controller002 ms-controller002.internal.xyz.local
-
-172.20.20.13 ms-controller003.public.xyz.local
-172.20.21.13 ms-controller003 ms-controller003.internal.xyz.local
-
-172.20.20.14 ms-compute001.public.xyz.local
-172.20.21.14 ms-compute001 ms-compute001.internal.xyz.local
-
-172.20.20.15 ms-compute002.public.xyz.local
-172.20.21.15 ms-compute002 ms-compute002.internal.xyz.local
-
-172.20.20.16 ms-compute003.public.xyz.local
-172.20.21.16 ms-compute003 ms-compute003.internal.xyz.local
-
-172.20.20.100 public.xyz.local
-172.20.21.100 internal.xyz.local
-EOF
-```
 
 ## 3. Install cephadm 
 ```
