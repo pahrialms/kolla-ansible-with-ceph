@@ -1,10 +1,12 @@
 ## 1. Install package dependency for Openstack
 ```
+# run only on node deployer (aka controller001)
 apt-get install python3-dev libffi-dev gcc libssl-dev python3-selinux python3-setuptools python3-venv -y
 ```
 
 ## 2. Create virtaul environment
 ```
+# run only on node deployer
 mkdir openstack
 cd ~/openstack
 python3 -m venv os-venv
@@ -13,6 +15,7 @@ source os-venv/bin/activate
 
 ## 3. Upgrade pip, install ansible & install kolla-ansible
 ```
+# run only on node deployer
 pip install -U pip
 pip install 'ansible>=6,<8'
 pip install git+https://opendev.org/openstack/kolla-ansible@master
@@ -20,10 +23,12 @@ pip install git+https://opendev.org/openstack/kolla-ansible@master
 
 ## 4. Install ansible galaxy 
 ```
+# run only on node deployer
 kolla-ansible install-deps
 ```
 ## 5. Copy openstack configuration from kolla directory
 ```
+# run only on node deployer
 sudo mkdir -p /etc/kolla
 sudo chown $USER:$USER /etc/kolla
 
@@ -33,6 +38,7 @@ cp os-venv/share/kolla-ansible/ansible/inventory/* .
 
 ## 6. Create ansible configuration tune
 ```
+# run only on node deployer
 mkdir -p /etc/ansible
 nano /etc/ansible/ansible.cfg
 ---
@@ -45,6 +51,7 @@ forks=100
 
 ## 7. Edit multinode file 
 ```
+# run only on node deployer
 nano multinode
 ---
 [control]
@@ -88,6 +95,7 @@ kolla-genpwd
 ## 10. Edit kolla globals.yml
 ```
 nano /etc/kolla/globals.yml
+---
 kolla_base_distro: "ubuntu"
 kolla_install_type: "source"
 openstack_release: "master"
@@ -131,10 +139,12 @@ api_interface: "bond0.30"
 tunnel_interface: "bond0.40"
 neutron_plugin_agent: "openvswitch"
 enable_neutron_dvr: "yes"
+---
 ```
 
 ## 11. Copy ceph keyring to kolla config directory
 ```
+# run only on node deployer
 mkdir -p /etc/kolla/config/cinder/cinder-volume/
 mkdir /etc/kolla/config/nova/
 mkdir /etc/kolla/config/glance/
@@ -152,6 +162,7 @@ cp /etc/ceph/ceph.conf /etc/kolla/config/nova/
 
 ## 12. Execute deployment command 
 ```
+# run only on node deployer
 kolla-ansible -i ./multinode certificates
 kolla-ansible -i ./multinode bootstrap-servers
 kolla-ansible -i ./multinode prechecks
