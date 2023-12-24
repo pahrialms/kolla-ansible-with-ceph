@@ -1,9 +1,9 @@
-Install package dependency for Openstack
+## 1. Install package dependency for Openstack
 ```
 apt-get install python3-dev libffi-dev gcc libssl-dev python3-selinux python3-setuptools python3-venv -y
 ```
 
-Create virtaul environment
+## 2. Create virtaul environment
 ```
 mkdir openstack
 cd ~/openstack
@@ -11,18 +11,18 @@ python3 -m venv os-venv
 source os-venv/bin/activate
 ```
 
-Upgrade pip, install ansible & install kolla-ansible
+## 3. Upgrade pip, install ansible & install kolla-ansible
 ```
 pip install -U pip
 pip install 'ansible>=6,<8'
 pip install git+https://opendev.org/openstack/kolla-ansible@master
 ```
 
-Install ansible galaxy 
+## 4. Install ansible galaxy 
 ```
 kolla-ansible install-deps
 ```
-Copy openstack configuration from kolla directory
+## 5. Copy openstack configuration from kolla directory
 ```
 sudo mkdir -p /etc/kolla
 sudo chown $USER:$USER /etc/kolla
@@ -31,7 +31,7 @@ cp -r os-venv/share/kolla-ansible/etc_examples/kolla/* /etc/kolla
 cp os-venv/share/kolla-ansible/ansible/inventory/* .
 ```
 
-Create ansible configuration tune
+## 6. Create ansible configuration tune
 ```
 mkdir -p /etc/ansible
 nano /etc/ansible/ansible.cfg
@@ -43,7 +43,7 @@ forks=100
 ---
 ```
 
-Edit multinode file 
+## 7. Edit multinode file 
 ```
 nano multinode
 ---
@@ -75,27 +75,27 @@ ms-controller003
 localhost       ansible_connection=local
 ```
 
-Test connectivity kolla-ansible to all node
+## 8. Test connectivity kolla-ansible to all node
 ```
 ansible -i multinode all -m ping
 ```
 
-Generate password for openstack services
+## 9. Generate password for openstack services
 ```
 kolla-genpwd
 ```
 
-Edit kolla globals.yml
+## 10. Edit kolla globals.yml
 ```
 nano /etc/kolla/globals.yml
 kolla_base_distro: "ubuntu"
 kolla_install_type: "source"
 openstack_release: "master"
-kolla_internal_vip_address: "172.18.1.100"
+kolla_internal_vip_address: "172.20.21.100"
 kolla_internal_fqdn: "internal.xyz.local"
-kolla_external_vip_address: "172.18.0.100"
+kolla_external_vip_address: "172.20.20.100"
 kolla_external_fqdn: "public.xyz.local"
-neutron_external_interface: "ens6"
+neutron_external_interface: "bond1"
 enable_neutron_provider_networks: "yes"
 enable_haproxy: "yes"
 enable_keystone: "yes"
@@ -126,14 +126,14 @@ kolla_enable_tls_external: "yes"
 kolla_copy_ca_into_containers: "yes"
 kolla_enable_tls_backend: "yes"
 openstack_cacert: "/etc/ssl/certs/ca-certificates.crt"
-kolla_external_vip_interface: "ens3"
-api_interface: "ens4"
-tunnel_interface: "ens5"
+kolla_external_vip_interface: "bond0.10"
+api_interface: "bond0.30"
+tunnel_interface: "bond0.40"
 neutron_plugin_agent: "openvswitch"
 enable_neutron_dvr: "yes"
 ```
 
-Copy ceph keyring to kolla config directory
+## 11. Copy ceph keyring to kolla config directory
 ```
 mkdir -p /etc/kolla/config/cinder/cinder-volume/
 mkdir /etc/kolla/config/nova/
@@ -150,7 +150,7 @@ cp /etc/ceph/ceph.conf /etc/kolla/config/glance/
 cp /etc/ceph/ceph.conf /etc/kolla/config/nova/
 ```
 
-Execute deployment command 
+## 12. Execute deployment command 
 ```
 kolla-ansible -i ./multinode certificates
 kolla-ansible -i ./multinode bootstrap-servers
@@ -165,7 +165,7 @@ echo "export OS_CACERT=/etc/ssl/certs/ca-certificates.crt" | tee -a /etc/kolla/a
 cat /etc/kolla/certificates/ca/root.crt | sudo tee -a /etc/ssl/certs/ca-certificates.crt
 ```
 
-To support vlan for provider network, change neutron-server config to add network_vlan_ranges
+## 14. To support vlan for provider network, change neutron-server config to add network_vlan_ranges
 ```
 vim /etc/kolla/neutron-server/ml2_conf.ini
 ---
