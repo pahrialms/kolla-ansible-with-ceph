@@ -9,10 +9,7 @@ ssh-copy-id -f -i ~/.ssh/id_rsa.pub root@ms-compute002
 ssh-copy-id -f -i ~/.ssh/id_rsa.pub root@ms-compute003
 ```
 
-## 2. Makesure hostname mapping in /etc/hosts has correct:
-
-
-## 3. Install cephadm 
+## 2. Install cephadm 
 ```
 # run only on controller001
 CEPH_RELEASE=18.2.0 # replace this with the active release
@@ -25,12 +22,12 @@ chmod +x cephadm
 
 ```
 
-## 4. Bootstrap ceph cluster
+## 3. Bootstrap ceph cluster
 ```
 cephadm bootstrap --mon-ip 172.16.16.11 --cluster-network 172.20.23.0/24 --log-to-file --allow-overwrite
 ```
 
-## 5. Install ceph client 
+## 4. Install ceph client 
 ```
 cephadm shell
 exit
@@ -39,7 +36,7 @@ cephadm add-repo --release reef
 cephadm install ceph-common
 ```
 
-## 6. Copy ceph public key to all node ceph cluster:
+## 5. Copy ceph public key to all node ceph cluster:
 ```
 ssh-copy-id -f -i /etc/ceph/ceph.pub root@ms-controller002
 ssh-copy-id -f -i /etc/ceph/ceph.pub root@ms-controller003
@@ -48,7 +45,7 @@ ssh-copy-id -f -i /etc/ceph/ceph.pub root@ms-compute002
 ssh-copy-id -f -i /etc/ceph/ceph.pub root@ms-compute003
 ```
 
-## 7. Add additional ceph-mon
+## 6. Add additional ceph-mon
 ```
 ceph orch apply mon --unmanaged
 ssh ms-controller002 apt install podman -y
@@ -61,7 +58,7 @@ ceph orch daemon add mon ms-controller002:172.16.16.12
 ceph orch daemon add mon ms-controller003:172.16.16.13
 ```
 
-## 8. Add node compute as storage disk server 
+## 7 Add node compute as storage disk server 
 ```
 ssh ms-compute001 apt install podman -y
 ssh ms-compute002 apt install podman -y
@@ -76,7 +73,7 @@ ex: ceph orch daemon add osd ms-compute001:/dev/sdb
 ceph -s
 ```
 
-## 9. Create openstack keyring for openstack usage
+## 8. Create openstack keyring for openstack usage
 ```
 ceph -s
 ceph osd pool create volumes
