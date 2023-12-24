@@ -65,11 +65,11 @@ cephadm install ceph-common
 
 ## 6. Copy ceph public key to all node ceph cluster:
 ```
-ssh-copy-id -f -i /etc/ceph/ceph.pub root@controller002
-ssh-copy-id -f -i /etc/ceph/ceph.pub root@controller003
-ssh-copy-id -f -i /etc/ceph/ceph.pub root@compute001
-ssh-copy-id -f -i /etc/ceph/ceph.pub root@compute002
-ssh-copy-id -f -i /etc/ceph/ceph.pub root@compute003
+ssh-copy-id -f -i /etc/ceph/ceph.pub root@ms-controller002
+ssh-copy-id -f -i /etc/ceph/ceph.pub root@ms-controller003
+ssh-copy-id -f -i /etc/ceph/ceph.pub root@ms-compute001
+ssh-copy-id -f -i /etc/ceph/ceph.pub root@ms-compute002
+ssh-copy-id -f -i /etc/ceph/ceph.pub root@ms-compute003
 ```
 
 ## 7. Add additional ceph-mon
