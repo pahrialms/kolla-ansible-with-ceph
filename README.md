@@ -5,7 +5,7 @@ This is documentation how to installing OpenStack for production with storage di
 ![image](https://github.com/pahrialms/kolla-ansible-with-ceph/assets/82088448/55bc2e43-5a1f-4a04-9289-5ca6685d4e98)
 
 ### Bonding architecture
-![image](https://github.com/pahrialms/kolla-ansible-with-ceph/assets/82088448/7d19bbb8-299b-4840-b36d-ed35d12e974f)
+![image](https://github.com/pahrialms/kolla-ansible-with-ceph/assets/82088448/5fb0e1c3-9b69-4ae1-845f-96357505170a)
 
 ### Network Cofiguration :
 
