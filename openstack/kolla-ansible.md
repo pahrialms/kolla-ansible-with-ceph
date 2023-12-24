@@ -178,6 +178,7 @@ cat /etc/kolla/certificates/ca/root.crt | sudo tee -a /etc/ssl/certs/ca-certific
 
 ## 14. To support vlan for provider network, change neutron-server config to add network_vlan_ranges
 ```
+# change config on all controller
 vim /etc/kolla/neutron-server/ml2_conf.ini
 ---
 [ml2_type_vlan]
