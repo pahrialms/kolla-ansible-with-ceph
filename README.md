@@ -19,6 +19,32 @@ This is documentation how to installing OpenStack for production with storage di
 | ms-compute002     | 172.18.2.15/24 | 172.20.20.15/24 | 172.20.21.15/24 | 172.20.22.15/24 | 172.20.23.15/24 | 172.16.16.15/24 |
 | ms-compute003     | 172.18.2.16/24 | 172.20.20.16/24 | 172.20.21.16/24 | 172.20.22.16/24 | 172.20.23.16/24 | 172.16.16.16/24 |
 
+### add domain mapping at /etc/hosts in each node 
+```
+nano /etc/hosts
+---
+172.20.20.11 ms-controller001.public.xyz.local
+172.20.21.11 ms-controller001 ms-controller001.internal.xyz.local
+
+172.20.20.12 ms-controller002.public.xyz.local
+172.20.21.12 ms-controller002 ms-controller002.internal.xyz.local
+
+172.20.20.13 ms-controller003.public.xyz.local
+172.20.21.13 ms-controller003 ms-controller003.internal.xyz.local
+
+172.20.20.14 ms-compute001.public.xyz.local
+172.20.21.14 ms-compute001 ms-compute001.internal.xyz.local
+
+172.20.20.15 ms-compute002.public.xyz.local
+172.20.21.15 ms-compute002 ms-compute002.internal.xyz.local
+
+172.20.20.16 ms-compute003.public.xyz.local
+172.20.21.16 ms-compute003 ms-compute003.internal.xyz.local
+
+172.20.20.100 public.xyz.local
+172.20.21.100 internal.xyz.local
+---
+```
 
 Install Openstack with kolla-ansible with storage distribution Ceph
 
