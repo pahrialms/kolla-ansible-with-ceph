@@ -2,7 +2,11 @@
 ```
 # run only on controller001
 ssh-keygen -t rsa
-ssh-copy-id -f -i ~/.ssh/id_rsa.pub root@host
+ssh-copy-id -f -i ~/.ssh/id_rsa.pub root@ms-controller002
+ssh-copy-id -f -i ~/.ssh/id_rsa.pub root@ms-controller003
+ssh-copy-id -f -i ~/.ssh/id_rsa.pub root@ms-compute001
+ssh-copy-id -f -i ~/.ssh/id_rsa.pub root@ms-compute002
+ssh-copy-id -f -i ~/.ssh/id_rsa.pub root@ms-compute003
 ```
 
 ## 2. Add hostname mapping in /etc/hosts file configuration :
