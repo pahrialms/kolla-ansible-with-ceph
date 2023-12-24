@@ -24,4 +24,5 @@ Install Openstack with kolla-ansible with storage distribution Ceph
 
 1. [Install ceph with cephadm](https://github.com/pahrialms/kolla-ansible-with-ceph/blob/main/ceph/cephadm.md)
 2. [Install Openstack with kolla-ansible](https://github.com/pahrialms/kolla-ansible-with-ceph/blob/main/openstack/kolla-ansible.md)
+3. [Create resource Openstack](https://github.com/pahrialms/integrate-openstack-kube/blob/main/openstack/create-resource-openstack.md)
 
