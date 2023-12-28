@@ -71,6 +71,10 @@ ceph orch device ls
 ceph orch daemon add osd *<host>*:*<device-path>*
 ex: ceph orch daemon add osd ms-compute001:/dev/sdb
 ceph -s
+
+# if we want add disk automaticly
+ceph orch apply osd --all-available-devices
+
 ```
 
 ## 8. Create openstack keyring for openstack usage
